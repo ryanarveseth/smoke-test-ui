@@ -2,14 +2,12 @@ import React, {useState} from 'react';
 import styled from "styled-components";
 import {deleteTestById, runOneTestByTestId} from "../services/TestService";
 import {ClockLoader} from "react-spinners";
-import {TbCircleCheck} from "react-icons/tb";
-import {BsCircle, BsExclamationCircle, BsFillPencilFill} from "react-icons/bs";
-import ExpandableTableRow from "./ExpandableTableRow";
-import {BUTTON_BLUE, GRAY, GREEN, RED} from "../util/styles/Colors";
+import {BUTTON_BLUE, GREEN, RED} from "../util/styles/Colors";
 import {BiChevronDown} from "react-icons/bi";
-import {FaPlay} from "react-icons/fa";
 import {AiFillDelete, AiFillEdit} from "react-icons/ai";
 import DeleteConfirmationModal from "./DeleteConfirmationModal";
+import {getDateDiff, getDateTime, getShortDate} from "../util/DateUtil";
+import {Dot} from "../util/styles";
 
 
 const StyledClockLoader = styled(ClockLoader)`
@@ -79,7 +77,7 @@ const TestCase = ({testCase, setTests, editTest}) => {
       setLoading(true);
       const result = await (await runOneTestByTestId(testCase.id)).json();
       setLoading(false);
-      const {passed, lastRunTime} = result[0];
+      const {passed, lastChecked} = result[0];
       setTests(prevState => prevState
         .map(test => test.id === testCase.id
           ? ({
@@ -87,7 +85,7 @@ const TestCase = ({testCase, setTests, editTest}) => {
             previousResult: passed
               ? "passed"
               : "failed",
-            lastRunTime
+            lastChecked
           })
           : test
         ));
@@ -117,31 +115,15 @@ const TestCase = ({testCase, setTests, editTest}) => {
       {/*    />*/}
       {/*  </Relative>*/}
       {/*</td>*/}
+      <td className="centered"><Dot status={testCase?.statusCode}/></td>
+      <td>{getDateTime(testCase.lastChecked)}</td>
       <td>{testCase.name}</td>
+      <td>{testCase?.whoIsData?.domain}</td>
+      <td>{getShortDate(testCase?.whoIsData?.expiresOn)}</td>
+      <td className="centered">{getDateDiff(testCase?.whoIsData?.expiresOn)}</td>
       <td>
-        {testCase.value}
-      </td>
-      <td className="centered">{testCase.failures}</td>
-      <td style={{textAlign: "center"}}>
-        {loading ?
-          <Relative><StyledClockLoader size={21} loading={true} color="#ff9311"/></Relative>
-          :
-          (testCase.previousResult === "failed"
-            ? <Relative><BsExclamationCircle className="custom-icon" color={RED}/></Relative>
-            : testCase.previousResult === "passed"
-              ? <Relative><TbCircleCheck className="custom-icon" color={GREEN}/></Relative>
-              : <Relative><BsCircle className="custom-icon" color={GRAY}/></Relative>)
-        }
-      </td>
-      <td>
-        {testCase.lastRunTime ? new Date(testCase.lastRunTime).toLocaleString() : ''}
-      </td>
-      <td>
-          <FaPlay className={!loading && "hoverable"}
-                  onClick={runTest}
-                  style={{color: loading ? GRAY : GREEN}}/>
-        <EditButton className="hoverable" size={16} onClick={() => editTest(testCase.id)} />
-        <DeleteButton className="hoverable" size={20} onClick={() => setDeleteTestActive(true)} />
+        <EditButton className="hoverable" size={16} onClick={() => editTest(testCase.id)}/>
+        <DeleteButton className="hoverable" size={20} onClick={() => setDeleteTestActive(true)}/>
         <DeleteConfirmationModal onDelete={deleteTest}
                                  setActive={setDeleteTestActive}
                                  active={deleteTestActive}/>

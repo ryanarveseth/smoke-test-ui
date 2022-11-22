@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import {BACKGROUND, GRAY, GREEN, RED} from "./Colors";
+import {BACKGROUND, GRAY, GREEN, RED, YELLOW} from "./Colors";
 
 export const Card = styled.div`
   
@@ -71,7 +71,7 @@ export const GreenButton = styled.button`
   box-shadow: 2px 4px 4px #111111;
 `;
 
-const inputStyles = [`
+const inputStyles = `
   padding: 8px 12px;
   margin: 8px 0;
   display: inline-block;
@@ -85,7 +85,29 @@ const inputStyles = [`
   &:focus {
     outline: none;
   }
-`]
+`;
 
-export const Input = styled.input(inputStyles);
-export const Select = styled.select(inputStyles);;
+const smallStyles = `
+  padding: 4px 6px;
+  margin: 6px;
+  font-size: 12px;
+`;
+
+export const Input = styled.input([inputStyles]);
+export const Select = styled.select([inputStyles]);
+
+export const SmallInput = styled.input([inputStyles + smallStyles]);
+
+export const Dot = styled.div`
+  background: ${
+  ({status}) => status < 300
+    ? GREEN
+    : status < 400
+      ? YELLOW
+      : RED
+  };
+  height: 12px;
+  width: 12px;
+  border-radius: 50%;
+  margin: 0 auto;
+`;

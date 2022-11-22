@@ -45,10 +45,16 @@ table, tr {
 }
 
 th, td {
-  padding: 8px;
+  padding: 4px;
   text-align: left;
   word-wrap: break-word;
   max-width: 400px;
+  &:first-child {
+    padding-left: 8px;
+  }
+  &:last-child {
+    padding-right: 8px;
+  }
 }
 
 th {
@@ -62,4 +68,5 @@ th {
 table {
   margin: 0 auto;
   padding-top: 50px;
+  font-size: 12px;
 }

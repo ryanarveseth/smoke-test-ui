@@ -11,9 +11,7 @@ const Label = styled.label`
 
 const emptyTest = {
   name: "",
-  field: "TEXT",
-  value: "",
-  testUrl: ""
+  url: ""
 }
 
 const Form = ({ test = {...emptyTest}, close, onSubmit }) => {
@@ -41,12 +39,6 @@ const Form = ({ test = {...emptyTest}, close, onSubmit }) => {
   }
 
   useEffect(() => {
-    if (!testCase || !testCase.field) {
-      setTestCase(prevState => ({...prevState, field: "TEXT"}));
-    }
-  }, []);
-
-  useEffect(() => {
     setIsUpdate(!!testCase.id)
     setFormTitle(testCase.id
       ? "Update Test"
@@ -71,44 +63,13 @@ const Form = ({ test = {...emptyTest}, close, onSubmit }) => {
                    name="name"/>
           </div>
           <div>
-            <Label htmlFor="testUrl">URL</Label>
+            <Label htmlFor="url">URL</Label>
             <Input onChange={updateTestCase}
                    required
                    type="url"
-                   value={testCase.testUrl}
-                   id="testUrl"
-                   name="testUrl"/>
-          </div>
-          {/*<div>*/}
-          {/*  <Label htmlFor="field">Search by...</Label>*/}
-          {/*  <Select onChange={updateTestCase}*/}
-          {/*          required*/}
-          {/*          value={testCase.field}*/}
-          {/*          id="field"*/}
-          {/*          name="field">*/}
-          {/*    <option/>*/}
-          {/*    <option value="TEXT">*/}
-          {/*      Text*/}
-          {/*    </option>*/}
-          {/*    <option value="ID">*/}
-          {/*      Element id*/}
-          {/*    </option>*/}
-          {/*    <option value="CLASS">*/}
-          {/*      Element class*/}
-          {/*    </option>*/}
-          {/*  </Select>*/}
-          {/*</div>*/}
-          <div>
-            <Label htmlFor="value">{testCase.field
-              ? testCase.field[0].toUpperCase() + testCase.field.slice(1).toLowerCase()
-              : "Value"
-            } to Find
-            </Label>
-            <Input onChange={updateTestCase}
-                   required type="text"
-                   value={testCase.value}
-                   id="value"
-                   name="value"/>
+                   value={testCase.url}
+                   id="url"
+                   name="url"/>
           </div>
 
           <ModalFooter>

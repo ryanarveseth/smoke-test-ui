@@ -45,15 +45,9 @@ const ExpandableTableRow = ({ testCase, isExpanded }) => (
             Test URL:
           </div>
           <div>
-            <a target="_blank" style={{color: "lightgreen"}} href={testCase.testUrl}>
-              {testCase.testUrl}
+            <a target="_blank" style={{color: "lightgreen"}} href={testCase.url}>
+              {testCase.url}
             </a>
-          </div>
-          <div>
-            {`${testCase.field.toLowerCase()} to find on page:`}
-          </div>
-          <div>
-            <pre>{testCase.value}</pre>
           </div>
         </Grid>
       </div>
