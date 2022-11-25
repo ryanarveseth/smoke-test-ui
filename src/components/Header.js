@@ -6,7 +6,7 @@ const Header = () => {
   return (
     <header>
       <h1 style={{color: "white"}}>
-        Client Site Smoke Tests
+        Site Statuses
       </h1>
     </header>
   );

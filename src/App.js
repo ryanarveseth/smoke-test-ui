@@ -98,7 +98,7 @@ const App = () => {
       <Header/>
       <Container>
         <AddNewButton className="hoverable" onClick={() => setShowForm(true)}>
-          Add Test
+          Add URL
         </AddNewButton>
         <TestCaseTable tests={tests} editTest={editTest} setTests={setTests} setSelectedTest={setTest}/>
         {

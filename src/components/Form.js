@@ -41,8 +41,8 @@ const Form = ({ test = {...emptyTest}, close, onSubmit }) => {
   useEffect(() => {
     setIsUpdate(!!testCase.id)
     setFormTitle(testCase.id
-      ? "Update Test"
-      : "Create New Test");
+      ? "Update Site"
+      : "Site to Validate");
   }, [testCase]);
 
   return (
@@ -54,7 +54,7 @@ const Form = ({ test = {...emptyTest}, close, onSubmit }) => {
           <CgClose onClick={close} className="hoverable" color="lightgray" style={{ width: "fit-content", margin: "0", fontSize: "25px", position: "fixed", right: "24px", top: "24px"  }} />
         <form onSubmit={saveTest}>
           <div>
-            <Label htmlFor="name">Test Case Name</Label>
+            <Label htmlFor="name">Name</Label>
             <Input onChange={updateTestCase}
                    required
                    type="text"
